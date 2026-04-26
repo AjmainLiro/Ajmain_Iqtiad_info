@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ajmain Iqtiad — Engineer & Project Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0f2744;
+  --navy-mid: #1a3a5c;
+  --blue: #1d5fa8;
+  --blue-light: #2e80d8;
+  --accent: #e8a020;
+  --cream: #f8f5f0;
+  --white: #ffffff;
+  --gray-100: #f4f4f2;
+  --gray-200: #e8e6e1;
+  --gray-400: #9a9590;
+  --gray-600: #5a5650;
+  --gray-800: #2a2825;
+  --text: #1e1c1a;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --radius: 4px;
+  --shadow: 0 2px 20px rgba(15,39,68,0.08);
+  --shadow-lg: 0 8px 40px rgba(15,39,68,0.14);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--cream); color: var(--text); font-size: 15px; line-height: 1.7; overflow-x: hidden; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(248,245,240,0.94); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--gray-200);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5vw; height: 60px;
+}
+.nav-logo { font-family: var(--font-display); font-size: 1.1rem; color: var(--navy); text-decoration: none; }
+.nav-links { display: flex; gap: 1.8rem; list-style: none; }
+.nav-links a { text-decoration: none; font-size: 0.78rem; font-weight: 500; color: var(--gray-600); letter-spacing: 0.07em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--blue); }
+
+/* HERO */
+#hero {
+  min-height: 100vh; padding-top: 60px;
+  background: var(--navy);
+  display: grid; grid-template-columns: 400px 1fr;
+  grid-template-rows: 1fr auto;
+  position: relative; overflow: hidden;
+}
+#hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 70% 30%, rgba(46,128,216,0.18) 0%, transparent 60%),
+              radial-gradient(ellipse at 15% 85%, rgba(232,160,32,0.1) 0%, transparent 50%);
+}
+.hero-sidebar {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 5rem 2.5rem 3rem;
+  border-right: 1px solid rgba(255,255,255,0.07);
+  position: relative; z-index: 1;
+  grid-row: 1;
+}
+.photo-ring {
+  width: 170px; height: 170px; border-radius: 50%;
+  border: 4px solid rgba(255,255,255,0.13);
+  box-shadow: 0 0 0 8px rgba(232,160,32,0.15), var(--shadow-lg);
+  overflow: hidden; background: var(--navy-mid);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.4rem; cursor: pointer; position: relative;
+  transition: box-shadow 0.3s;
+}
+.photo-ring:hover { box-shadow: 0 0 0 8px rgba(232,160,32,0.32), var(--shadow-lg); }
+.photo-ring img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.photo-overlay {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.4rem;
+  color: rgba(255,255,255,0.42); font-size: 0.68rem; text-align: center; padding: 1rem;
+}
+#photo-input { display: none; }
+.hero-name { font-family: var(--font-display); font-size: 1.6rem; color: var(--white); text-align: center; margin-bottom: 0.25rem; line-height: 1.2; }
+.hero-role { font-size: 0.72rem; color: var(--accent); font-weight: 600; letter-spacing: 0.09em; text-align: center; text-transform: uppercase; margin-bottom: 1.8rem; }
+.profile-facts { width: 100%; display: flex; flex-direction: column; }
+.fact-row { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.65rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.fact-row:last-child { border-bottom: none; }
+.fact-icon { width: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+.fact-label { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.12rem; }
+.fact-value { font-size: 0.77rem; color: rgba(255,255,255,0.75); line-height: 1.4; }
+.fact-value strong { color: var(--white); font-weight: 600; }
+
+.hero-main {
+  padding: 5rem 5vw 3rem 4vw;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 1; grid-row: 1;
+}
+.hero-eyebrow { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.9rem; }
+.hero-headline { font-family: var(--font-display); font-size: clamp(2rem, 3.2vw, 3rem); color: var(--white); line-height: 1.15; margin-bottom: 0.9rem; }
+.hero-sub { font-size: 0.88rem; color: rgba(255,255,255,0.58); margin-bottom: 2rem; max-width: 480px; line-height: 1.75; }
+.hero-sub strong { color: rgba(255,255,255,0.85); }
+.hero-highlights { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2rem; }
+.highlight-strip {
+  display: flex; align-items: flex-start; gap: 0.9rem;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 6px; padding: 0.75rem 1.1rem; border-left: 3px solid var(--accent);
+}
+.hs-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+.hs-text { font-size: 0.8rem; color: rgba(255,255,255,0.75); line-height: 1.5; }
+.hs-text strong { color: var(--white); }
+.hero-stats { display: flex; gap: 1.4rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.hstat { text-align: center; }
+.hstat-num { font-family: var(--font-display); font-size: 1.9rem; color: var(--white); line-height: 1; }
+.hstat-label { font-size: 0.62rem; color: rgba(255,255,255,0.4); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 0.2rem; }
+.hstat-divider { width: 1px; background: rgba(255,255,255,0.1); align-self: stretch; margin: 0.2rem 0; }
+.hero-cta { display: flex; gap: 0.9rem; flex-wrap: wrap; }
+.btn { display: inline-block; padding: 0.65rem 1.5rem; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; text-decoration: none; border-radius: var(--radius); transition: all 0.2s; cursor: pointer; border: none; }
+.btn-primary { background: var(--accent); color: var(--navy); }
+.btn-primary:hover { background: #d4901a; transform: translateY(-1px); }
+.btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.28); }
+.btn-outline:hover { background: rgba(255,255,255,0.07); transform: translateY(-1px); }
+
+.interests-ribbon {
+  grid-column: 1 / -1; grid-row: 2;
+  background: rgba(0,0,0,0.2); border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 1.2rem 5vw; display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap;
+}
+.ribbon-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+.ribbon-items { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.ribbon-item { display: flex; align-items: center; gap: 0.35rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.09); border-radius: 20px; padding: 0.28rem 0.75rem; font-size: 0.72rem; color: rgba(255,255,255,0.65); }
+
+/* SECTIONS */
+section { padding: 5rem 8vw; }
+section:nth-child(even) { background: var(--white); }
+.section-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.45rem; }
+.section-title { font-family: var(--font-display); font-size: clamp(1.6rem, 2.6vw, 2.3rem); color: var(--navy); margin-bottom: 2.2rem; line-height: 1.2; }
+
+/* ABOUT */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.about-text p { color: var(--gray-600); margin-bottom: 0.9rem; font-size: 0.9rem; }
+.about-links { display: flex; flex-direction: column; gap: 0.55rem; margin-top: 1.4rem; }
+.about-link { display: flex; align-items: center; gap: 0.55rem; font-size: 0.82rem; color: var(--blue); text-decoration: none; font-weight: 500; }
+.about-link:hover { color: var(--navy); }
+.about-highlights { display: flex; flex-direction: column; gap: 0.8rem; }
+.highlight-card { background: var(--cream); border-left: 3px solid var(--accent); padding: 0.85rem 1.1rem; border-radius: 0 var(--radius) var(--radius) 0; }
+.highlight-card h4 { font-size: 0.82rem; font-weight: 600; color: var(--navy); margin-bottom: 0.2rem; }
+.highlight-card p { font-size: 0.75rem; color: var(--gray-600); margin: 0; }
+
+/* EDUCATION */
+.edu-list { display: flex; flex-direction: column; gap: 1.1rem; }
+.edu-card { background: var(--cream); border: 1px solid var(--gray-200); border-radius: 6px; padding: 1.4rem 1.7rem; display: grid; grid-template-columns: auto 1fr; gap: 1.3rem; align-items: start; box-shadow: var(--shadow); }
+.edu-icon { width: 38px; height: 38px; background: var(--navy); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.edu-year { font-size: 0.66rem; color: var(--blue); font-weight: 600; letter-spacing: 0.06em; margin-bottom: 0.22rem; }
+.edu-deg { font-weight: 600; color: var(--navy); font-size: 0.9rem; margin-bottom: 0.18rem; }
+.edu-inst { font-size: 0.8rem; color: var(--gray-600); margin-bottom: 0.42rem; }
+.edu-gpa { display: inline-block; background: var(--navy); color: var(--white); font-size: 0.66rem; font-weight: 600; padding: 0.15rem 0.52rem; border-radius: 2px; }
+.coursework { margin-top: 0.65rem; font-size: 0.74rem; color: var(--gray-600); }
+.coursework strong { color: var(--navy); }
+
+/* PROJECTS */
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.3rem; }
+.project-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 8px; padding: 1.5rem; box-shadow: var(--shadow); transition: all 0.25s; display: flex; flex-direction: column; }
+.project-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--blue-light); }
+.project-type { font-size: 0.63rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.45rem; }
+.project-title { font-family: var(--font-display); font-size: 1rem; color: var(--navy); margin-bottom: 0.65rem; line-height: 1.3; }
+.project-desc { font-size: 0.8rem; color: var(--gray-600); margin-bottom: 0.9rem; flex: 1; }
+.project-metrics { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
+.metric { background: #eef4fc; color: var(--blue); font-size: 0.68rem; font-weight: 600; padding: 0.2rem 0.52rem; border-radius: 2px; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.32rem; }
+.tag { background: var(--gray-100); color: var(--gray-600); font-size: 0.64rem; padding: 0.16rem 0.48rem; border-radius: 2px; }
+
+/* PUBLICATION */
+.pub-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 8px; padding: 2rem; box-shadow: var(--shadow); display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start; }
+.pub-badge { background: var(--navy); color: var(--white); font-size: 0.64rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.32rem 0.72rem; border-radius: 2px; white-space: nowrap; align-self: start; }
+.pub-conference { font-size: 0.66rem; color: var(--accent); font-weight: 600; letter-spacing: 0.06em; margin-bottom: 0.42rem; }
+.pub-title { font-family: var(--font-display); font-size: 1.1rem; color: var(--navy); margin-bottom: 0.48rem; line-height: 1.3; }
+.pub-authors { font-size: 0.78rem; color: var(--gray-600); margin-bottom: 0.38rem; }
+.pub-authors strong { color: var(--navy); }
+.pub-id { font-size: 0.73rem; color: var(--gray-400); margin-bottom: 0.85rem; font-family: monospace; }
+.pub-link { display: inline-flex; align-items: center; gap: 0.38rem; font-size: 0.76rem; font-weight: 600; color: var(--blue); text-decoration: none; }
+.pub-link:hover { color: var(--navy); }
+
+/* SKILLS */
+.skills-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; }
+.skill-group { background: var(--cream); border: 1px solid var(--gray-200); border-radius: 8px; padding: 1.3rem; }
+.skill-group-title { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); margin-bottom: 0.85rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent); }
+.skill-list { display: flex; flex-wrap: wrap; gap: 0.38rem; }
+.skill-pill { background: var(--white); border: 1px solid var(--gray-200); color: var(--gray-800); font-size: 0.71rem; padding: 0.26rem 0.62rem; border-radius: 20px; }
+
+/* EXPERIENCE */
+.exp-list { display: flex; flex-direction: column; gap: 1.3rem; }
+.exp-card { background: var(--cream); border: 1px solid var(--gray-200); border-radius: 8px; padding: 1.6rem 1.8rem; box-shadow: var(--shadow); }
+.exp-header { display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.22rem; }
+.exp-role { font-weight: 700; color: var(--navy); font-size: 0.95rem; }
+.exp-period { font-size: 0.7rem; color: var(--blue); font-weight: 600; background: #eef4fc; padding: 0.16rem 0.52rem; border-radius: 2px; }
+.exp-company { font-size: 0.8rem; color: var(--gray-600); margin-bottom: 0.75rem; font-style: italic; }
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.38rem; }
+.exp-bullets li { font-size: 0.81rem; color: var(--gray-600); padding-left: 1rem; position: relative; }
+.exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.exp-skills { display: flex; flex-wrap: wrap; gap: 0.38rem; margin-top: 0.85rem; }
+.exp-skill-tag { background: var(--navy); color: rgba(255,255,255,0.82); font-size: 0.65rem; font-weight: 500; padding: 0.18rem 0.52rem; border-radius: 2px; }
+
+/* CERTS */
+.certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.9rem; }
+.cert-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 6px; padding: 1rem 1.2rem; box-shadow: var(--shadow); display: flex; align-items: start; gap: 0.7rem; }
+.cert-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 0.4rem; }
+.cert-name { font-size: 0.82rem; font-weight: 600; color: var(--navy); margin-bottom: 0.18rem; }
+.cert-org { font-size: 0.71rem; color: var(--gray-400); }
+.cert-card.featured { border-color: var(--accent); background: linear-gradient(135deg, #fffbf2 0%, var(--white) 100%); }
+.cert-card.featured .cert-dot { width: 10px; height: 10px; box-shadow: 0 0 0 3px rgba(232,160,32,0.25); }
+
+/* CONTACT */
+#contact { background: var(--navy); }
+#contact .section-label { color: var(--accent); }
+#contact .section-title { color: var(--white); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+.contact-info { display: flex; flex-direction: column; gap: 0.9rem; }
+.contact-item { display: flex; align-items: center; gap: 0.75rem; }
+.contact-item a { color: rgba(255,255,255,0.72); text-decoration: none; font-size: 0.86rem; transition: color 0.2s; }
+.contact-item a:hover { color: var(--accent); }
+.contact-icon { width: 32px; height: 32px; background: rgba(255,255,255,0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.contact-note { font-size: 0.81rem; color: rgba(255,255,255,0.42); margin-top: 0.9rem; line-height: 1.65; }
+.contact-form { display: flex; flex-direction: column; gap: 0.9rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.32rem; }
+.form-group label { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.42); }
+.form-group input, .form-group textarea { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: var(--white); font-family: var(--font-body); font-size: 0.84rem; padding: 0.68rem 0.95rem; border-radius: var(--radius); outline: none; transition: border-color 0.2s; }
+.form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+.form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.2); }
+.form-group textarea { resize: vertical; min-height: 105px; }
+.btn-submit { background: var(--accent); color: var(--navy); font-weight: 700; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.78rem 1.7rem; border-radius: var(--radius); border: none; cursor: pointer; transition: all 0.2s; align-self: flex-start; }
+.btn-submit:hover { background: #d4901a; transform: translateY(-1px); }
+.form-success { display: none; color: var(--accent); font-size: 0.84rem; font-weight: 500; }
+
+footer { background: #07192e; color: rgba(255,255,255,0.28); text-align: center; padding: 1.3rem; font-size: 0.74rem; letter-spacing: 0.04em; }
+
+.fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.52s ease, transform 0.52s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  #hero { grid-template-columns: 1fr; }
+  .hero-sidebar { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); padding: 4rem 8vw 2.5rem; }
+  .interests-ribbon { grid-column: 1; }
+}
+@media (max-width: 680px) {
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .pub-card { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  section { padding: 3.5rem 6vw; }
+  .nav-links { gap: 0.9rem; }
+  .nav-links a { font-size: 0.7rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">Ajmain Iqtiad</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <!-- SIDEBAR: Personal profile -->
+  <div class="hero-sidebar">
+    <label for="photo-input" style="cursor:pointer;">
+      <div class="photo-ring">
+        <img id="photoImg" src="" alt="Ajmain Iqtiad">
+        <div class="photo-overlay" id="photoPlaceholder">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Tap to upload photo</span>
+        </div>
+      </div>
+    </label>
+    <input type="file" id="photo-input" accept="image/*">
+    <div class="hero-name">Ajmain Iqtiad</div>
+    <div class="hero-role">Engineer · Project Manager</div>
+    <div class="profile-facts">
+      <div class="fact-row">
+        <div class="fact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(232,160,32,0.9)" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+        <div><div class="fact-label">Current Role</div><div class="fact-value"><strong>Junior Executive, Project Management</strong><br>BRACNet Limited</div></div>
+      </div>
+      <div class="fact-row">
+        <div class="fact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(232,160,32,0.9)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        <div><div class="fact-label">Degree</div><div class="fact-value"><strong>B.Sc. EEE — BRAC University</strong><br>CGPA: 3.53 / 4.00</div></div>
+      </div>
+      <div class="fact-row">
+        <div class="fact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(232,160,32,0.9)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+        <div><div class="fact-label">ECA Highlight</div><div class="fact-value"><strong>President, EEE Club BRAC University</strong><br>Spectra 3.0 · 500+ participants</div></div>
+      </div>
+      <div class="fact-row">
+        <div class="fact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(232,160,32,0.9)" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <div><div class="fact-label">Top Achievement</div><div class="fact-value"><strong>🌍 UN Millennium Fellow 2025</strong><br>United Nations</div></div>
+      </div>
+      <div class="fact-row">
+        <div class="fact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(232,160,32,0.9)" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <div><div class="fact-label">Leadership Program</div><div class="fact-value"><strong>🎓 Aspire Leaders Program</strong><br>Aspire Institute · Founded at Harvard</div></div>
+      </div>
+      <div class="fact-row">
+        <div class="fact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(232,160,32,0.9)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div><div class="fact-label">Published Research</div><div class="fact-value"><strong>1st Author · IAC 2023</strong><br>74th Intl. Astronautical Congress</div></div>
+      </div>
+      <div class="fact-row">
+        <div class="fact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(232,160,32,0.9)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><div class="fact-label">Location</div><div class="fact-value">Dhaka, Bangladesh</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN: Pitch -->
+  <div class="hero-main">
+    <div class="hero-eyebrow">⚡ Engineer · Project Manager · Researcher</div>
+    <h1 class="hero-headline">Engineer.<br><em>Leader.</em><br>Problem Solver.</h1>
+    <p class="hero-sub">EEE graduate driving <strong>telecoms infrastructure projects at BRACNet Limited</strong>. Specialist in <strong>Power Systems, Renewable Energy</strong> and <strong>Project Management</strong>. UN Millennium Fellow. IAC-published researcher. Aspire Leaders alumnus.</p>
+    <div class="hero-highlights">
+      <div class="highlight-strip"><span class="hs-icon">🌍</span><div class="hs-text"><strong>UN Millennium Fellow 2025</strong> — Selected by the United Nations for outstanding leadership in sustainable development.</div></div>
+      <div class="highlight-strip"><span class="hs-icon">🎓</span><div class="hs-text"><strong>Aspire Leaders Program — Cohort 3 (2025)</strong> · Aspire Institute, founded at Harvard University.</div></div>
+      <div class="highlight-strip"><span class="hs-icon">🚀</span><div class="hs-text"><strong>Published — 74th IAC, Baku 2023</strong> · First author on peer-reviewed paper at the International Astronautical Congress.</div></div>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num">3.53</div><div class="hstat-label">CGPA</div></div>
+      <div class="hstat-divider"></div>
+      <div class="hstat"><div class="hstat-num">81<span style="font-size:1rem">%</span></div><div class="hstat-label">PV Perf. Ratio</div></div>
+      <div class="hstat-divider"></div>
+      <div class="hstat"><div class="hstat-num">500<span style="font-size:1rem">+</span></div><div class="hstat-label">Event Participants</div></div>
+      <div class="hstat-divider"></div>
+      <div class="hstat"><div class="hstat-num">5<span style="font-size:1rem">+</span></div><div class="hstat-label">Projects</div></div>
+    </div>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get In Touch</a>
+      <a href="#experience" class="btn btn-outline">View Experience</a>
+    </div>
+  </div>
+
+  <!-- INTERESTS RIBBON -->
+  <div class="interests-ribbon">
+    <span class="ribbon-label">Interests</span>
+    <div class="ribbon-items">
+      <span class="ribbon-item">📋 Project Management (PMP)</span>
+      <span class="ribbon-item">⚡ Power Systems & Smart Grid</span>
+      <span class="ribbon-item">☀️ Renewable Energy</span>
+      <span class="ribbon-item">🌐 IoT & AI Integration</span>
+      <span class="ribbon-item">🚀 Space & Satellite Technology</span>
+      <span class="ribbon-item">🎵 Singing & Music Performance</span>
+      <span class="ribbon-item">🎤 Public Speaking</span>
+      <span class="ribbon-item">🤝 Community Engagement</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Who I Am</div>
+  <h2 class="section-title">About Me</h2>
+  <div class="about-grid">
+    <div class="about-text fade-up">
+      <p>I am an Electrical and Electronic Engineering graduate from BRAC University, currently working as <strong>Junior Executive — Project Management</strong> at BRACNet Limited, where I coordinate telecoms infrastructure project schedules, track contract agreements, and support performance reporting.</p>
+      <p>My technical background spans Power Systems Analysis, Renewable Energy, and IoT. I completed 24-hour industry-grade DIgSILENT PowerFactory training and designed a real-site 1.89 kWp solar PV system using PVsyst, achieving 81.65% Performance Ratio.</p>
+      <p>As a UN Millennium Fellow (2025) and Aspire Leaders alumnus (Harvard-founded institute), I combine engineering rigour with leadership and a passion for sustainable development. Beyond engineering, I am an active singer and co-founder of Utkontha — a creative platform for music and performing arts — reflecting my belief that creativity and analytical thinking go hand in hand.</p>
+      <div class="about-links">
+        <a href="mailto:ajmain.iqtiad@g.bracu.ac.bd" class="about-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>ajmain.iqtiad@g.bracu.ac.bd</a>
+        <a href="https://linkedin.com/in/ajmain-iqtiad" target="_blank" class="about-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>linkedin.com/in/ajmain-iqtiad</a>
+        <a href="https://researchgate.net/publication/375768804" target="_blank" class="about-link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>IAC 2023 Publication — ResearchGate</a>
+      </div>
+    </div>
+    <div class="about-highlights fade-up">
+      <div class="highlight-card"><h4>🌍 UN Millennium Fellow — 2025</h4><p>Selected for the United Nations Millennium Fellowship, recognising young leaders driving impact on the Sustainable Development Goals globally.</p></div>
+      <div class="highlight-card"><h4>🎓 Aspire Leaders Program — Harvard-Founded</h4><p>Cohort 3 (2025), Aspire Institute. A globally competitive leadership programme founded at Harvard University for high-potential young leaders.</p></div>
+      <div class="highlight-card"><h4>🚀 Published — 74th IAC, Baku 2023</h4><p>First-authored peer-reviewed paper on portable satellite ground station design for disaster management in Bangladesh.</p></div>
+      <div class="highlight-card"><h4>⚡ Club President — Spectra 3.0 Tech Festival</h4><p>Led BRAC University's EEE Club, directing a 500+ participant festival and securing BDT 200,000 in corporate sponsorship.</p></div>
+      <div class="highlight-card"><h4>🎵 Singing & Creative Arts — Founder, Utkontha</h4><p>Co-founded Utkontha, a platform promoting music and performing arts. Active singer who believes creativity enhances engineering thinking and communication.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">Academic Background</div>
+  <h2 class="section-title">Education</h2>
+  <div class="edu-list">
+    <div class="edu-card fade-up">
+      <div class="edu-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+      <div><div class="edu-year">JAN 2022 – JAN 2026</div><div class="edu-deg">B.Sc. in Electrical and Electronic Engineering</div><div class="edu-inst">BRAC University, Dhaka · BSRM School of Engineering</div><span class="edu-gpa">CGPA: 3.53 / 4.00</span><div class="coursework"><strong>Coursework:</strong> Power Systems Analysis · Renewable Energy Systems · Electrical Machines · Control Systems · Signal Processing · Embedded Systems</div></div>
+    </div>
+    <div class="edu-card fade-up">
+      <div class="edu-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+      <div><div class="edu-year">2020</div><div class="edu-deg">Higher Secondary Certificate (HSC)</div><div class="edu-inst">Govt. City College, Chattogram</div><span class="edu-gpa">GPA: 5.0 / 5.0</span></div>
+    </div>
+    <div class="edu-card fade-up">
+      <div class="edu-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+      <div><div class="edu-year">2018</div><div class="edu-deg">Secondary School Certificate (SSC)</div><div class="edu-inst">Collegiate School, Chattogram</div><span class="edu-gpa">GPA: 5.0 / 5.0</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Professional & Leadership</div>
+  <h2 class="section-title">Experience</h2>
+  <div class="exp-list">
+    <div class="exp-card fade-up" style="border-left:4px solid var(--accent);">
+      <div class="exp-header">
+        <div class="exp-role">Junior Executive — Project Management</div>
+        <span class="exp-period" style="background:#fff3dc;color:#9a6200;">Current Role</span>
+      </div>
+      <div class="exp-company">BRACNet Limited · Dhaka, Bangladesh</div>
+      <ul class="exp-bullets">
+        <li>Track and follow up on client contract agreements to ensure timely submission, execution, and compliance across multiple enterprise accounts.</li>
+        <li>Prepare weekly and monthly performance and progress reports for management and internal stakeholders.</li>
+        <li>Monitor and coordinate project schedules for installations, service changes, disconnections/reconnections, managed services (software & hardware), security, and cloud projects — ensuring timely billing initiation.</li>
+        <li>Coordinate with inventory and procurement teams to ensure on-time product delivery aligned with project milestones and client commitments.</li>
+      </ul>
+      <div class="exp-skills">
+        <span class="exp-skill-tag">Project Management</span><span class="exp-skill-tag">Schedule Coordination</span><span class="exp-skill-tag">Contract Follow-Up</span><span class="exp-skill-tag">Reporting</span><span class="exp-skill-tag">Procurement Coordination</span><span class="exp-skill-tag">PMP</span><span class="exp-skill-tag">Telecoms</span>
+      </div>
+    </div>
+    <div class="exp-card fade-up">
+      <div class="exp-header"><div class="exp-role">Intern — Corporate Operations & Fintech</div><span class="exp-period">Jun – Aug 2025</span></div>
+      <div class="exp-company">FILPS International · Multinational B2B Fintech</div>
+      <ul class="exp-bullets">
+        <li>Managed client engagement and cross-departmental workflows for a multinational B2B fintech firm.</li>
+        <li>Contributed to 'Bankers Meet 2025 Bangladesh', attended by Brett King and executives from 40+ national and international banks.</li>
+      </ul>
+    </div>
+    <div class="exp-card fade-up">
+      <div class="exp-header"><div class="exp-role">President — Electrical and Electronic Club, BRAC University</div><span class="exp-period">2024–2025</span></div>
+      <div class="exp-company">BRAC University, Dhaka</div>
+      <ul class="exp-bullets">
+        <li>Directed 'Spectra 3.0' tech festival — 500+ participants, workshops, project exhibitions, and competitions.</li>
+        <li>Secured BDT 200,000 in corporate sponsorship; managed full budget, vendor negotiations, and logistics.</li>
+        <li>Organised international industry seminar featuring the Product Principal of IoT & AI, Telstra Ltd., Australia.</li>
+      </ul>
+    </div>
+    <div class="exp-card fade-up">
+      <div class="exp-header"><div class="exp-role">Co-Lead, Communication & Networking — Bracu Alter</div><span class="exp-period">2024</span></div>
+      <div class="exp-company">RoboCup Rescue 2024 · Final Round</div>
+      <ul class="exp-bullets">
+        <li>Designed network infrastructure and communication protocols for an autonomous robotics system that reached the final round of RoboCup Rescue 2024.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Technical Work</div>
+  <h2 class="section-title">Projects & Research</h2>
+  <div class="projects-grid">
+    <div class="project-card fade-up">
+      <div class="project-type">Industry Training · 2025</div>
+      <div class="project-title">Power System Analysis — DIgSILENT PowerFactory</div>
+      <div class="project-desc">8-week, 24-hour industry programme. Covered load flow, short circuit (IEC/ANSI), transient stability with CCT via DPL scripting, N-1 contingency, power quality, harmonics, battery storage, and EV integration.</div>
+      <div class="project-tags"><span class="tag">Load Flow</span><span class="tag">Short Circuit</span><span class="tag">Transient Stability</span><span class="tag">Contingency</span><span class="tag">Harmonics</span><span class="tag">EV Integration</span></div>
+    </div>
+    <div class="project-card fade-up">
+      <div class="project-type">Renewable Energy Coursework · 2025</div>
+      <div class="project-title">Grid-Connected Solar PV System Design — PVsyst</div>
+      <div class="project-desc">Designed and simulated a 1.89 kWp PV system for Dakshin Kattali, Bangladesh. Full loss chain analysis including thermal, ohmic, mismatch, and IAM losses.</div>
+      <div class="project-metrics"><span class="metric">2,675 kWh/year</span><span class="metric">PR: 81.65%</span><span class="metric">1,416 kWh/kWp/year</span></div>
+      <div class="project-tags"><span class="tag">PVsyst</span><span class="tag">Meteonorm 8.0</span><span class="tag">Solar PV Design</span></div>
+    </div>
+    <div class="project-card fade-up">
+      <div class="project-type">Final Year Project · 2026</div>
+      <div class="project-title">IoT Net Meter Monitoring System — Grid-Connected Solar PV</div>
+      <div class="project-desc">Smart microgrid using ESP32, Raspberry Pi, and MQTT for real-time energy monitoring, automated net-metering, and edge-cloud load balancing.</div>
+      <div class="project-tags"><span class="tag">ESP32</span><span class="tag">Raspberry Pi</span><span class="tag">MQTT</span><span class="tag">Python</span><span class="tag">Edge Computing</span></div>
+    </div>
+    <div class="project-card fade-up">
+      <div class="project-type">Research · BEAR Summit 2025</div>
+      <div class="project-title">Hybrid Renewable Energy Optimisation — Dublar Chor</div>
+      <div class="project-desc">MATLAB optimisation model for a hybrid renewable off-grid system serving a remote coastal Bangladesh community. Presented at BEAR Summit 2025.</div>
+      <div class="project-tags"><span class="tag">MATLAB</span><span class="tag">Optimisation</span><span class="tag">Hybrid Renewable</span></div>
+    </div>
+    <div class="project-card fade-up">
+      <div class="project-type">Publication · IAC 2023</div>
+      <div class="project-title">Portable Ground Station for Disaster Management in Bangladesh</div>
+      <div class="project-desc">First-authored paper on portable satellite communication ground station for disaster response. Published at 74th IAC, Baku. ID: IAC-23,E5,4,8,x79313.</div>
+      <div class="project-tags"><span class="tag">Satellite Comm.</span><span class="tag">Antenna Systems</span><span class="tag">Published</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATION -->
+<section id="publication">
+  <div class="section-label">Peer-Reviewed Research</div>
+  <h2 class="section-title">Publication</h2>
+  <div class="pub-card fade-up">
+    <span class="pub-badge">Published</span>
+    <div>
+      <div class="pub-conference">74TH INTERNATIONAL ASTRONAUTICAL CONGRESS · BAKU, AZERBAIJAN · 2023</div>
+      <div class="pub-title">Deploying a Portable Ground Station for Effective Disaster Management in Bangladesh</div>
+      <div class="pub-authors"><strong>Iqtiad, A.</strong>, et al.</div>
+      <div class="pub-id">Paper ID: IAC-23,E5,4,8,x79313</div>
+      <a href="https://researchgate.net/publication/375768804" target="_blank" class="pub-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View on ResearchGate</a>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Technical Competencies</div>
+  <h2 class="section-title">Skills</h2>
+  <div class="skills-wrapper">
+    <div class="skill-group fade-up"><div class="skill-group-title">Project Management</div><div class="skill-list"><span class="skill-pill">PMP (Pursuing)</span><span class="skill-pill">Schedule Monitoring</span><span class="skill-pill">Contract Management</span><span class="skill-pill">Stakeholder Coordination</span><span class="skill-pill">Progress Reporting</span><span class="skill-pill">Procurement Coordination</span><span class="skill-pill">Risk Tracking</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-title">Power Systems</div><div class="skill-list"><span class="skill-pill">DIgSILENT PowerFactory</span><span class="skill-pill">Load Flow</span><span class="skill-pill">Short Circuit Analysis</span><span class="skill-pill">Transient Stability</span><span class="skill-pill">Contingency Analysis</span><span class="skill-pill">AutoCAD</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-title">Renewable Energy</div><div class="skill-list"><span class="skill-pill">PVsyst</span><span class="skill-pill">HOMER</span><span class="skill-pill">MATLAB SIMULINK</span><span class="skill-pill">Solar PV Design</span><span class="skill-pill">Wind Energy</span><span class="skill-pill">Battery Storage</span><span class="skill-pill">EV Integration</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-title">Programming</div><div class="skill-list"><span class="skill-pill">Python</span><span class="skill-pill">MATLAB</span><span class="skill-pill">C</span><span class="skill-pill">DPL Scripting</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-title">IoT & Hardware</div><div class="skill-list"><span class="skill-pill">ESP32</span><span class="skill-pill">Raspberry Pi</span><span class="skill-pill">MQTT</span><span class="skill-pill">PCB Design</span><span class="skill-pill">Proteus</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-title">Soft Skills</div><div class="skill-list"><span class="skill-pill">Event Management</span><span class="skill-pill">Team Leadership</span><span class="skill-pill">Public Speaking</span><span class="skill-pill">Corporate Communication</span><span class="skill-pill">Workshop Facilitation</span></div></div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">Recognition & Awards</div>
+  <h2 class="section-title">Certifications & Achievements</h2>
+  <div class="certs-grid">
+    <div class="cert-card featured fade-up"><div class="cert-dot"></div><div><div class="cert-name">🌍 UN Millennium Fellowship</div><div class="cert-org">United Nations · Cohort 2025</div></div></div>
+    <div class="cert-card featured fade-up"><div class="cert-dot"></div><div><div class="cert-name">🎓 Aspire Leaders Program</div><div class="cert-org">Aspire Institute (Founded at Harvard University) · Cohort 3, 2025</div></div></div>
+    <div class="cert-card fade-up"><div class="cert-dot"></div><div><div class="cert-name">IAC 2023 — Published First Author</div><div class="cert-org">74th International Astronautical Congress · Baku, Azerbaijan</div></div></div>
+    <div class="cert-card fade-up"><div class="cert-dot"></div><div><div class="cert-name">DIgSILENT PowerFactory — Advanced Power System Analysis</div><div class="cert-org">8-Week Industry Programme · BRAC University · 2025</div></div></div>
+    <div class="cert-card fade-up"><div class="cert-dot"></div><div><div class="cert-name">Graphics Design Advanced Level Certification</div><div class="cert-org">BRAC University</div></div></div>
+    <div class="cert-card fade-up"><div class="cert-dot"></div><div><div class="cert-name">Featured in BRACU Express (2024)</div><div class="cert-org">Recognised for academic and creative excellence</div></div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Let's Connect</div>
+  <h2 class="section-title">Get In Touch</h2>
+  <div class="contact-grid">
+    <div class="contact-info fade-up">
+      <div class="contact-item"><div class="contact-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div><a href="mailto:ajmain.iqtiad@g.bracu.ac.bd">ajmain.iqtiad@g.bracu.ac.bd</a></div>
+      <div class="contact-item"><div class="contact-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div><a href="https://linkedin.com/in/ajmain-iqtiad" target="_blank">linkedin.com/in/ajmain-iqtiad</a></div>
+      <div class="contact-item"><div class="contact-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.71a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg></div><a href="tel:+8801972160661">+8801972160661</a></div>
+      <p class="contact-note">Open to opportunities in Project Management, Power Systems Engineering, and Renewable Energy — across Bangladesh and internationally.</p>
+    </div>
+    <form class="contact-form fade-up" id="contactForm">
+      <div class="form-row">
+        <div class="form-group"><label>Your Name</label><input type="text" placeholder="John Doe" required></div>
+        <div class="form-group"><label>Your Email</label><input type="email" placeholder="john@company.com" required></div>
+      </div>
+      <div class="form-group"><label>Subject</label><input type="text" placeholder="Job opportunity / Collaboration"></div>
+      <div class="form-group"><label>Message</label><textarea placeholder="Tell me about the opportunity..."></textarea></div>
+      <button type="submit" class="btn-submit">Send Message</button>
+      <div class="form-success" id="formSuccess">✓ Message received! I'll get back to you soon.</div>
+    </form>
+  </div>
+</section>
+
+<footer><p>© 2026 Ajmain Iqtiad · Engineer & Project Manager · Dhaka, Bangladesh</p></footer>
+
+<script>
+document.getElementById('photo-input').addEventListener('change', function(e) {
+  const file = e.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = document.getElementById('photoImg');
+    img.src = ev.target.result; img.style.display = 'block';
+    document.getElementById('photoPlaceholder').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+});
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => { if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 65); });
+}, { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+const secs = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  document.querySelectorAll('.nav-links a').forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + cur); });
+});
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  document.getElementById('formSuccess').style.display = 'block';
+  this.reset();
+  setTimeout(() => { document.getElementById('formSuccess').style.display = 'none'; }, 4000);
+});
+</script>
+</body>
+</html>
